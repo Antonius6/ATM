@@ -10,21 +10,26 @@ public class Main {
         int Withdraw = 0;
         boolean Continue = true;
         int PIN;
-        int CountTransaction=0;
+        int CountTransaction = 0;
 
-            System.out.println("Please Enter your PIN: ");
-            PIN = in.nextInt();
-            if (PIN == 1234) {
-                System.out.println("Login successful");
+        System.out.println("Please Enter your PIN: ");
+        PIN = in.nextInt();
+        if (PIN == 1234) {
+            System.out.println("Login successful");
 
-            }
-            while (PIN != 1234){
-            System.out.println("Invalid PIN");
+        }
+        while (PIN != 1234) {
             attempts++;
             if (attempts == 3) {
-                System.out.println("Your account has been locked.");
+                System.out.println("Account locked.");
                 return;
             }
+
+            System.out.println("Invalid PIN");
+            System.out.println("Enter your PIN again: ");
+            PIN = in.nextInt();
+
+
         }
 
         while (Continue) {
@@ -38,7 +43,7 @@ public class Main {
             byte choice = in.nextByte();
             switch (choice) {
                 case 1:
-                    if (balance ==0){
+                    if (balance == 0) {
                         System.out.println("Warning! Your account is empty.");
                     }
                     System.out.println("Your balance is: " + balance);
@@ -60,17 +65,18 @@ public class Main {
                 case 3:
                     System.out.println("Please enter the amount to withdraw");
                     Withdraw = in.nextInt();
-                    if (Withdraw ==0){
+                    if (Withdraw == 0) {
                         System.out.println("Withdraw cancelled.");
                         break;
                     }
                     while (Withdraw < 0 || Withdraw > balance) {
                         System.out.println("Invalid withdraw amount");
+                        Withdraw = in.nextInt();
                         if (Withdraw > balance) {
                             System.out.println("Insufficient balance. Please enter a valid amount.");
                             System.out.println("Your balance is: " + balance);
                             Withdraw = in.nextInt();
-                            if (Withdraw ==0){
+                            if (Withdraw == 0) {
                                 System.out.println("Withdraw cancelled.");
                                 break;
                             }
@@ -79,7 +85,7 @@ public class Main {
                     System.out.println("Withdraw successful.\n" +
                             "Your new balance is: " + (balance - Withdraw));
                     balance -= Withdraw;
-                    if (balance ==0){
+                    if (balance == 0) {
                         System.out.println("Warning! Your account is empty.");
                     }
                     CountTransaction++;
